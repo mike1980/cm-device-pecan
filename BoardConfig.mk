@@ -111,8 +111,8 @@ WIFI_DRIVER_FW_AP_PATH          := "/system/etc/wl/rtecdc-apsta.bin"
 WIFI_DRIVER_MODULE_NAME         := "wireless"
 WIFI_DRIVER_MODULE_PATH         := "/system/lib/modules/wireless.ko"
 WIFI_DRIVER_MODULE_ARG          := "firmware_path=/etc/wl/rtecdc.bin nvram_path=/etc/wl/nvram.txt config_path=/data/misc/wifi/config"
-WPA_SUPPLICANT_VERSION          := VER_0_6_X
-HOSTAPD_VERSION                 := VER_0_6_X
+WPA_SUPPLICANT_VERSION          := VER_0_5_X
+HOSTAPD_VERSION                 := VER_0_5_X
 WIFI_DRIVER_HAS_LGE_SOFTAP      := true
 BOARD_WEXT_NO_COMBO_SCAN        := true
 BOARD_WPA_SUPPLICANT_DRIVER     := WEXT
