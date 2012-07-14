@@ -114,7 +114,6 @@ WIFI_DRIVER_MODULE_ARG          := "firmware_path=/etc/wl/rtecdc.bin nvram_path=
 WPA_SUPPLICANT_VERSION          := VER_0_5_X
 HOSTAPD_VERSION                 := VER_0_5_X
 WIFI_DRIVER_HAS_LGE_SOFTAP      := true
-BOARD_WEXT_NO_COMBO_SCAN        := true
 BOARD_WPA_SUPPLICANT_DRIVER     := WEXT
 
 # FM Radio
