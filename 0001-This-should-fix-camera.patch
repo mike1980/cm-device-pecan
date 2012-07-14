@@ -1,0 +1,34 @@
+From 4047c595f1802171725957a8503d082a4c43dbc7 Mon Sep 17 00:00:00 2001
+From: Arjen Visser <arjen.jessica@gmail.com>
+Date: Fri, 13 Jul 2012 13:48:04 +0300
+Subject: [PATCH] This should fix camera
+
+---
+ BoardConfig.mk |   11 +++++++++--
+ 1 files changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/BoardConfig.mk b/BoardConfig.mk
+index 2acd219..0ddec15 100755
+--- a/BoardConfig.mk
++++ b/BoardConfig.mk
+@@ -15,8 +15,15 @@
+ 
+ TARGET_SPECIFIC_HEADER_PATH := device/lge/pecan/include
+ 
+-USE_CAMERA_STUB := false
+-BOARD_USE_FROYO_LIBCAMERA := true
++USE_CAMERA_STUB := true
++
++# Camera
++# http://r.cyanogenmod.com/#/c/13317/
++COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
++#BOARD_CAMERA_USE_GETBUFFERINFO := true
++#BOARD_USE_CAF_LIBCAMERA := true
++# This is needed by libcamera.so
++BOARD_USE_NASTY_PTHREAD_CREATE_HACK := true
+ 
+ # Arch related defines
+ TARGET_BOARD_PLATFORM := msm7k
+-- 
+1.7.5.4
+
