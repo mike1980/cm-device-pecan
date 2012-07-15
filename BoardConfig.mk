@@ -47,7 +47,7 @@ TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_USES_OLD_LIBSENSORS_HAL:=true
 TARGET_OTA_ASSERT_DEVICE := pecan
 
- Enable OpenGL Hardware Acceleration
+#Enable OpenGL Hardware Acceleration
 # msm7x27: no support for overlay, bypass, or c2d
 USE_OPENGL_RENDERER := true
 TARGET_USE_OVERLAY := false
