@@ -15,7 +15,7 @@
 # limitations under the License.
 
 VENDOR=lge
-DEVICE=c660
+DEVICE=pecan
 
 mkdir -p ../../../vendor/$VENDOR/$DEVICE
 
