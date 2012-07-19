@@ -1,13 +1,65 @@
-# gpu driver for adreno200 is globally accessible
-/dev/genlock            0666    system  graphics
-
-/dev/oncrpc/*               0660   radio       radio
-/dev/msm_camera/*           0660   system      camera
-/dev/msm_camera             0660   system      system
 /dev/smdcntl0               0640   radio       radio
 /dev/smdcntl1               0640   radio       radio
 /dev/smdcntl2               0640   radio       radio
+/dev/hw3d                   0666   root        root
+
+# allow wpa_supplicant access to rfkill dev
+/dev/rfkill               0660   wifi       wifi
+
+# gpu driver for adreno200 is globally accessible
+/dev/kgsl-3d0             0666   root       root
+/dev/genlock            0666    system  graphics
+
+# these should not be world writable
+/dev/android_adb          0660   adb        adb
+/dev/android_adb_enable   0660   adb        adb
+/dev/alarm                0664   system     radio
+/dev/graphics/*           0660   media      graphics
+/dev/input/*              0660   root       input
+/dev/msm_camera/*         0660   media      system
+
+/dev/oncrpc/*             0660   root       qcom_oncrpc
+/dev/adsp/*               0660   system     audio
+/dev/snd/*                0660   system     audio
+
+/dev/smd0                 0640   radio      radio
+/dev/smd7                 0640   radio      radio
+/dev/smdcntl0             0640   radio      radio
+/dev/smdcntl1             0640   radio      radio
+/dev/smdcntl2             0640   radio      radio
+/dev/smdcntl3             0640   radio      radio
+/dev/smdcntl4             0640   radio      radio
+/dev/smdcntl5             0640   radio      radio
+/dev/smdcntl6             0640   radio      radio
+/dev/smdcntl7             0640   radio      radio
+/dev/mtp_usb              0660   root       mtp
 
 # sysfs properties
 /sys/devices/virtual/input/input*   enable      0660  root   input
 /sys/devices/virtual/input/input*   poll_delay  0660  root   input
+
+#permissions for audio
+/dev/msm_amrnb            0660  system       audio
+/dev/msm_amrwb            0660  system       audio
+/dev/msm_aac*             0660  system       audio
+/dev/msm_qcelp            0660  system       audio
+/dev/msm_evrc             0660  system       audio
+/dev/msm_wma              0660  system       audio
+/dev/msm_wmapro           0660  system       audio
+
+# Non-root permission qmuxd (QCT solution 00481665)
+/dev/smd7                 0640  radio        radio
+/dev/smdcntl0             0640  radio        radio
+/dev/smdcntl1             0640  radio        radio
+/dev/smdcntl2             0640  radio        radio
+/dev/smdcntl3             0640  radio        radio
+/dev/smdcntl4             0640  radio        radio
+/dev/smdcntl5             0640  radio        radio
+/dev/smdcntl6             0640  radio        radio
+/dev/smdcntl7             0640  radio        radio
+
+/dev/oncrpc/*             0660  system	     qcom_oncrpc
+/dev/ami304hal		  0640  compass	     system
+/dev/ami304daemon	  0640  compass	     system
+/dev/ami304		  0640  compass	     system
+/dev/K3DH		  0640  compass	     system

@@ -1,73 +1,88 @@
 ## hopemini@lge.com, 20100416
 
-on boot-pause
-    exec sbin/chargerlogo
- 
-   
-    import init.pecan.usb.rc
 
-#
+import init.pecan.usb.rc
+
 on early-init
 
     mkdir /system
     mkdir /data 0771 system system
-    mkdir /cache 0770 system cache
+    mkdir /cache 0771 system cache
     mkdir /mnt/sdcard 0000 system system
     mkdir /sd-ext 0771 system system
 
 on init
 
-# setup the global environment
-  export EXTERNAL_STORAGE /mnt/sdcard
-  export SD_EXT_DIRECTORY /sd-ext
-  export DOWNLOAD_CACHE /cache/download
+    # setup the global environment
+    export EXTERNAL_STORAGE /mnt/sdcard
+    export SD_EXT_DIRECTORY /sd-ext
+    export DOWNLOAD_CACHE /cache/download
 
-# Add permissions for camera access
-  chmod 0666 /dev/msm_camera/config0
-  chmod 0666 /dev/msm_camera/control0
-  chmod 0666 /dev/msm_camera/frame0
-  chmod 0666 /dev/msm_camera/pic0
+    # Backwards Compat - XXX: Going away in G*
+    symlink /mnt/sdcard /sdcard
 
-# Define the memory thresholds at which the above process classes will
-# be killed.  These numbers are in pages (4k).
-    setprop ro.FOREGROUND_APP_MEM 3584
-    setprop ro.VISIBLE_APP_MEM 4096
-    setprop ro.SECONDARY_SERVER_MEM 6144
-    setprop ro.BACKUP_APP_MEM 6144
-    setprop ro.HOME_APP_MEM 6144
-    setprop ro.HIDDEN_APP_MEM 7168
-    setprop ro.CONTENT_PROVIDER_MEM 7680
-    setprop ro.EMPTY_APP_MEM 8192
+    # Add permissions for camera access
+    chmod 0666 /dev/msm_camera/config0
+    chmod 0666 /dev/msm_camera/control0
+    chmod 0666 /dev/msm_camera/frame0
+    chmod 0666 /dev/msm_camera/pic0
+
+    # Define the memory thresholds at which the above process classes will
+    # be killed.  These numbers are in pages (4k).
+    setprop ro.FOREGROUND_APP_MEM 1536
+    setprop ro.VISIBLE_APP_MEM 2048
+    setprop ro.SECONDARY_SERVER_MEM 4096
+    setprop ro.BACKUP_APP_MEM 4096
+    setprop ro.HOME_APP_MEM 4096
+    setprop ro.HIDDEN_APP_MEM 5120
+    setprop ro.CONTENT_PROVIDER_MEM 5632
+    setprop ro.EMPTY_APP_MEM 6144
+
+# Overwrite framework low memory killer minfree setting
+    write /sys/module/lowmemorykiller/parameters/minfree 3584,4096,6144,7168,7680,8192
+
+# Enable low memory killer to check file pages
+    write /sys/module/lowmemorykiller/parameters/minfile 0,0,0,5120,5632,6144
+    write /sys/module/lowmemorykiller/parameters/check_filepages 1
 
 # fix for enropy service and some other that failed
-   chmod 0755 /data/system/appwidgets.xml
-   chmod 0755 /data/system/entropy.dat
-   chmod 0755 /data/system/wallpaper_info.xml
+    chmod 0755 /data/system/appwidgets.xml
+    chmod 0755 /data/system/entropy.dat
+    chmod 0755 /data/system/wallpaper_info.xml
 
 on post-fs
 
-   mkdir /data/local/download 0771 system cache
-   mkdir /cache/download 0771 system cache
+    # nv
+    mkdir /data/nv
+    chown system system /data/nv
+    chmod 0711 /data/nv
 
-# wifi
-   chmod 0777 /data/misc/wifi/config_mac
-   mkdir /data/audioprop 0777 system system
-   mkdir /data/misc/wifi/sockets 0770 wifi wifi
-   setprop wifi.supplicant_scan_interval 20
-   setprop wifi.interface wlan0
-   mkdir /data/misc/dhcp 0777 system system   
+    mkdir /data/local/download 0771 system cache
+    mkdir /cache/download 0771 system cach
+
+    # wifi
+    chmod 0777 /data/misc/wifi/config_mac
+    mkdir /data/audioprop 0777 system system
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    setprop wifi.supplicant_scan_interval 20
+    setprop wifi.interface wlan0
+    mkdir /data/misc/dhcp 0777 system system
 
 on post-fs-data
 
-# wifi
-   mkdir /data/misc/wifi 0770 wifi wifi
-   mkdir /data/misc/wifi/sockets 0770 wifi wifi
-   mkdir /data/misc/dhcp 0770 dhcp dhcp
-   chown dhcp dhcp /data/misc/dhcp
+    # wifi
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    mkdir /data/misc/hotspot 0770 system hotspot
 
+    # last line for post-fs-data
+    setprop vold.post_fs_data_done 1
 
-# last line for post-fs-data
-   setprop vold.post_fs_data_done 1
+on boot-pause
+
+    exec sbin/chargerlogo
 
 on boot
 
@@ -76,6 +91,7 @@ on boot
     chmod 0666 /data/amit/AMI306_Config2.ini
 
     mkdir /data/radio 0770 radio radio
+    chmod 2770 /data/radio
 
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
@@ -88,6 +104,19 @@ on boot
     chown bluetooth bluetooth /dev/ttyHS0
     chmod 0660 /dev/ttyHS0
     chmod 0666 /dev/msm_snd
+
+    # wifi
+    mkdir /data/misc 01771 system misc
+    mkdir /data/misc/wifi 0770 system wifi
+    mkdir /data/misc/wifi/sockets
+    chmod 770 /data/misc/wifi/sockets
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    mkdir /data/system 0775 system system
+
+    service chargerlogo /sbin/chargerlogo
+    class charger
+    user root
 
 ## LGE's bluetooth stuff
 # bluetooth permissions
@@ -134,7 +163,8 @@ on boot
 	chmod 0666 /dev/KR3DM
 ## PROXIMITY SENSOR
 	chmod 0666 /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
-
+# Wakelock debug
+  write /sys/module/wakelock/parameters/debug_mask 7
 # WIFI
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     setprop wifi.supplicant_scan_interval 20
@@ -146,6 +176,7 @@ service qmuxd /system/bin/qmuxd
     group radio
 
 service ami304d /system/bin/ami304d
+    class main
     user compass
     group system
 
@@ -184,36 +215,37 @@ on property:init.svc.hcid=running
 #	write /sys/module/lge_handle_panic/parameters/hidden_reset_enable 1
 
 
-service ami304d /system/bin/ami304d
-    class main
-    user compass
-    group system
-
-service hciattach /system/bin/sh /system/bin/init.qcom.bt.sh
-    class main
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-
-service dhcpcd_wlan0 /system/bin/dhcpcd -BKA wlan0
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n wlan0
-    disabled
-    oneshot
-
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd_wlan0
-
-service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -iwlan0 -W -c/data/misc/wifi/wpa_supplicant.conf
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -W -c/data/misc/wifi/wpa_supplicant.conf
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     group system wifi inet
     disabled
     oneshot
 
-service dhcpservice /system/bin/netcfg wlan0 dhcp
+service dhcpcd_wlan0 /system/bin/dhcpcd -BKA
+    class core
+    disabled
+    oneshot
+
+on property:init.svc.wpa_supplicant=stopped
+   stop dhcpcd_wlan0
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_bnep0 /system/bin/dhcpcd -B
+	class main
+	disabled
+	oneshot
+
+service iprenew_bnep0 /system/bin/dhcpcd -n
+	class main
+	disabled
+	oneshot
+
+service dhcp-service /system/bin/netcfg wlan0 dhcp
     class main
     oneshot
 
@@ -229,6 +261,10 @@ service hwaddrs /system/bin/hwaddrs
 
 on property:init.svc.bootanim=running
     start hwaddrs
+
+## Read BT address
+on property:service.brcm.bt.mac=*
+    exec /system/bin/hwaddrs
 
 service cnd /system/bin/cnd
     socket cnd stream 660 root radio
@@ -249,15 +285,9 @@ on property:net.usb_tethering=0
 #on property:dev.bootcomplete=1
 #    exec /system/bin/hwaddrs
 
-## Stop dhcpcd when wifi was stopped
-on property:init.svc.wpa_supplicant=stopped
-   stop dhcpcd_wlan0
-
-## Read BT address
-on property:service.brcm.bt.mac=*
-    exec /system/bin/hwaddrs
-
-## Restart dhcpservice
-on property:dev.bootcomplete=1
-   stop dhcpservice
-   start dhcpservice
+service bugreport /system/bin/logwrapper /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
+#   Triggered by the KEY_VOLUME_DOWN+KEY_MENU keycodes
+    keycodes 114 139
+    class main
+    disabled
+    oneshot

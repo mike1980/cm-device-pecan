@@ -84,7 +84,7 @@ PRODUCT_COPY_FILES += \
 
 # Releasetools
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/releasetools/extras.sh:system/bin/extras.sh
+     device/lge/pecan/releasetools/extras.sh:system/bin/extras.sh
 
 # Vold 
 PRODUCT_COPY_FILES += \
