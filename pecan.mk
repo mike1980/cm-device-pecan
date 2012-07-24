@@ -29,7 +29,7 @@ PRODUCT_MANUFACTURER := LGE
 # Graphics 
 PRODUCT_PACKAGES += \
    libmemalloc \
-   libQcomUI \
+   libqdutils \
    libgralloc \
    libcopybit
 
@@ -38,10 +38,10 @@ PRODUCT_PACKAGES += \
     hwaddrs
 
 # Video decoding
-PRODUCT_PACKAGES += \
-    libmm-omxcore \
-    libOmxCore \
-    libOmxVidEnc 
+#PRODUCT_PACKAGES += \
+#   libmm-omxcore \
+#   libOmxCore \
+#   libOmxVidEnc 
 
 # Apps
 PRODUCT_PACKAGES += \
