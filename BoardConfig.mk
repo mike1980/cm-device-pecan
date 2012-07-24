@@ -130,10 +130,12 @@ BOARD_HAS_JANKY_BACKBUFFER := true
 BOARD_CUSTOM_GRAPHICS := ../../../device/lge/pecan/recovery/graphics.c
 
 # Kernel
-TARGET_PREBUILT_KERNEL := device/lge/pecan/prebuilt/zImage
-BOARD_KERNEL_BASE := 0x02808000
+TARGET_KERNEL_SOURCE := kernel/lge/msm7x27
+# Copy LG Kernel Headers here if necessary, DON'T use Adroid auto-generated headers
+TARGET_SPECIFIC_HEADER_PATH := device/lge/pecan/include
 BOARD_KERNEL_CMDLINE := mem=215M console=ttyMSM2,115200n8 androidboot.hardware=pecan
-BOARD_PAGE_SIZE := 0x00000800
+TARGET_KERNEL_CONFIG := cyanogenmod_pecan_defconfig
+
 
 # Command line for charging mode
 BOARD_CHARGING_CMDLINE_NAME := "lge.reboot"
@@ -143,7 +145,7 @@ BOARD_USES_RECOVERY_CHARGEMODE := false
 # Touch screen compatibility for ICS
 BOARD_USE_LEGACY_TOUCHSCREEN := true
 
-# # cat /proc/mtd
+# Fix this up by examining /proc/mtd on a running device
 # dev:    size   erasesize  name
 # mtd0: 00500000 00020000 "boot"
 # mtd1: 00500000 00020000 "recovery"
@@ -154,6 +156,8 @@ BOARD_USE_LEGACY_TOUCHSCREEN := true
 # mtd6: 0a6a0000 00020000 "userdata"
 # mtd7: 01400000 00020000 "cust"
 
+BOARD_KERNEL_BASE := 0x02808000
+BOARD_PAGE_SIZE := 0x00000800
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00440000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00500000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x0c800000
