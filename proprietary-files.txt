@@ -1,3 +1,35 @@
+## RIL
+bin/qmuxd
+etc/flex/flex.xml
+lib/libgstk_exp.so
+lib/libqmi.so
+lib/libpbmlib.so
+lib/libmmgsdilib.so
+lib/libril-qcril-hook-oem.so
+lib/libdsm.so
+lib/liboncrpc.so
+lib/libril-qc-qmi-1.so
+lib/libnv.so
+lib/libauth.so
+lib/libril.so
+lib/libwms.so
+lib/libdiag.so
+lib/liboem_rapi.so
+lib/libgsdi_exp.so
+lib/libril-qc-1.so
+lib/liblgeat.so
+lib/libcm.so
+lib/libqueue.so
+lib/liblgerft.so
+lib/libdss.so
+lib/libdll.so
+lib/libbcmwl.so
+lib/libwmsts.so
+lib/libdsutils.so
+lib/libidl.so
+lib/liblgdrm.so
+lib/libsnd.so
+
 ## EGL
 lib/egl/libEGL_adreno200.so
 lib/egl/libGLESv1_CM_adreno200.so
@@ -34,3 +66,24 @@ lib/libOmxVidEnc.so
 lib/libOmxWmaDec.so
 lib/libOmxWmvDec.so
 lib/libmm-adspsvc.so
+
+## AUDIO
+lib/libaudioeq.so
+lib/hw/audio.primary.pecan.so 
+lib/hw/audio_policy.pecan.so
+
+## CAMERA
+lib/liboemcamera.so
+lib/libcamera.so
+lib/libmmjpeg.so
+lib/libmmipl.so
+
+## BT & WiFi
+etc/firmware/BCM43291A0_003.001.013.0060.Pecan.hcd
+etc/wl/rtecdc.bin
+etc/wl/rtecdc-apsta.bin
+etc/wl/rtecdc-mfgtest.bin
+
+## HAL
+bin/ami304d
+lib/hw/sensors.pecan.so
