@@ -99,7 +99,6 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-    device/lge/pecan/prebuilt/wireless.ko:system/lib/modules/wireless.ko \
     device/lge/pecan/files/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     device/lge/pecan/files/etc/dhcpd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf
 
@@ -109,9 +108,6 @@ PRODUCT_COPY_FILES += \
     device/lge/pecan/prebuilt/lib/hw/audio_policy.pecan.so:system/lib/hw/audio_policy.pecan.so \
     vendor/lge/pecan/proprietary/lib/libaudioeq.so:system/lib/libaudioeq.so
 
-# Kernel modules
-PRODUCT_COPY_FILES += \
-    device/lge/pecan/prebuilt/tun.ko:system/lib/modules/tun.ko 
 # Touch and IDC
 PRODUCT_COPY_FILES += \
     device/lge/pecan/configs/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
