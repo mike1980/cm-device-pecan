@@ -2,7 +2,6 @@
 # system.prop for pecan
 #
 
-# ril
 rild.libpath=/system/lib/libril-qc-1.so
 rild.libargs=-d /dev/smd0
 persist.rild.nitz_plmn=
@@ -14,53 +13,113 @@ persist.rild.nitz_short_ons_0=
 persist.rild.nitz_short_ons_1=
 persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
-DEVICE_PROVISIONED=1
 ro.telephony.call_ring.multiple=false
-ro.telephony.ril.v3=signalstrength,skipbrokendatacall,facilitylock,datacall,icccardstatus,1
+
+# Mobile data interfaces
 mobiledata.interfaces=rmnet0,rmnet1,rmnet2
-ro.telephony.call_ring.delay=3000
+
+# Default network type.
+# 0 => GSM Preferred.
+ro.telephony.default_network=0
+ro.telephony.ril.v3=signalstrength,skipbrokendatacall,facilitylock,datacall,icccardstatus,1
+
+# Allow or deny tethering.
+ro.tether.denied=false
+
+# Decrease dialing out delay
+ro.telephony.call_ring.delay=0
 
 ro.bt.bdaddr_path=/data/misc/bd_addr
 
+# Set default USB interface
 persist.sys.usb.config=mass_storage,adb
+
+# Enable debug mode by default
+persist.service.adb.enable=1
 
 ro.opengles.version=131072
 
+# Set default screen brightness
+settings.display.brightness=102
+
 ro.sf.lcd_density=120
+ro.sf.hw_lcd_density=120
+qemu.sf.lcd_density=120
+
+# For HSDPA low throughput
+ro.ril.disable.power.collapse=1
 
 # Saves power when phone is sleep
-pm.sleep_mode=1
+pm.sleep_mode=0
 
-ro.telephony.call_ring.multiple=false
-ro.telephony.call_ring.delay=3000
-
-# Graphics and performance
-ro.media.dec.jpeg.memcap=20000000
+# View configuration for QVGA.
 view.fading_edge_length=8
 view.touch_slop=15
 view.minimum_fling_velocity=25
 view.scroll_friction=0.008
-persist.sys.use_dithering=1
-persist.sys.purgeable_assets=1
 
-# System
-dalvik.vm.heapsize=32m
-ro.compcache.default=26
-sys.checkfs.fat=false
-ro.vold.umsdirtyratio=20
+# Performance settings.
 dalvik.vm.dexopt-data-only=1
 dalvik.vm.execution-mode=int:jit
-debug.sf.hw=1
-debug.camcorder.disablemeta=1
-ro.config.disable_hw_accel=true
+dalvik.vm.heapsize=32m
 dalvik.vm.lockprof.threshold=500
 dalvik.vm.dexopt-flags=m=y
-dalvik.vm.dexopt-data-only=1
+dalvik.vm.heapstartsize=5m
+dalvik.vm.heapgrowthlimit=48m
+dalvik.vm.heapsize=128m
+ro.config.disable_hw_accel=true
+debug.sf.hw=1
+debug.enabletr=false
+debug.composition.type=mdp
+debug.gr.numframebuffers=2
+debug.qctwa.statusbar=1
+debug.qctwa.preservebuf=1
+debug.performance.tuning=1
+persist.service.zram=1
+ro.zram.default=18
+video.accelerate.hw=1
+persist.sys.use_16bpp_alpha=1
+persist.sys.use_dithering=1
+
+# Disable fs check on boot by default.
+sys.checkfs.fat=false
+
+# System
+ro.vold.umsdirtyratio=20
+
+# enable software decoder for video
+sys.media.vdec.sw=1
+
+# Increase SKIA decode memory capability for progressive jpg file.
+ro.media.dec.jpeg.memcap=20000000
+
+# Force Launcher into memory
+ro.HOME_APP_ADJ=1
+
+# Raise JPG quality to 100%
+ro.media.enc.jpeg.quality=100
+
+# disable metadata to enable recording
+debug.camcorder.disablemeta=1
+
+#Makes streaming videos stream faster
+media.stagefright.enable-player=true
+media.stagefright.enable-meta=true
+media.stagefright.enable-scan=true
+media.stagefright.enable-http=false
+media.stagefright.enable-record=true
 
 # wifi
 wifi.interface=wlan0
-wifi.supplicant_scan_interval=150
+wifi.supplicant_scan_interval=45
 
 # Helps Scrolling Responsiveness
 windowsmgr.max_events_per_sec=150
 
+ro.product.camera=msm7x27
+
+com.qc.hardware=true
+com.qc.hdmi_out=false
+hwui.render_dirty_regions=false
+hwui.disable_vsync=true
+hwui.print_config=choice
