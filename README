@@ -2,11 +2,6 @@ cm9 device folder for lg optimus me
 
 LG P350 ICS Setup
 
-Copy/paste it WORKING_DIR/.repo/local_manifest.xml
+repo init -u git://github.com/PecanCM/android.git -b ics
 
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-  <project path="device/lge/pecan" name="PecanCM/cm-device-pecan" remote="github" revision="ics-release" />
-  <project path="kernel/lge/msm7x27" name="PecanCM/lge-kernel-msm7x27" remote="github" revision="ics" />
-  <project path="vendor/lge" name="PecanCM/cm_vendor_lge" remote="github" revision="master" />
-</manifest>
+repo sync
