@@ -38,7 +38,6 @@ USE_OPENGL_RENDERER := true
 TARGET_USE_OVERLAY := false
 TARGET_HAVE_BYPASS := false
 TARGET_USES_C2D_COMPOSITION := false
-TARGET_USES_GENLOCK := true
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
 BOARD_USE_SKIA_LCDTEXT := true
@@ -71,9 +70,9 @@ ENABLE_JSC_JIT := true
 JS_ENGINE := v8
 HTTP := chrome
 
-# USB mass storage
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
-BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
+# Usb mass storage 
+BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
 
 # ICS Stuff 
 BOARD_HAS_NO_SELECT_BUTTON := true
