@@ -1,5 +1,6 @@
-TARGET_SPECIFIC_HEADER_PATH := device/lge/pecan/include
-
+# WARNING: This line must come *before* including the proprietary
+# variant, so that it gets overwritten by the parent (which goes
+# against the traditional rules of inheritance).
 USE_CAMERA_STUB := true
 
 # Camera
@@ -11,18 +12,18 @@ COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
 BOARD_USE_NASTY_PTHREAD_CREATE_HACK := true
 
 # Arch related defines
-TARGET_BOARD_PLATFORM := msm7k
+TARGET_BOARD_PLATFORM := msm7x27
 ARCH_ARM_HAVE_VFP := true
 TARGET_ARCH_VARIANT := armv6-vfp
 TARGET_CPU_ABI := armeabi-v6l
 TARGET_CPU_ABI2 := armeabi
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
 # Target properties
 TARGET_BOOTLOADER_BOARD_NAME := pecan
 TARGET_OTA_ASSERT_DEVICE := p350,pecan
 
 # Target information
-TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := false
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 BOARD_NO_RGBX_8888 := true
@@ -32,16 +33,25 @@ TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_USES_OLD_LIBSENSORS_HAL:=true
 TARGET_OTA_ASSERT_DEVICE := pecan
 
+# Bootloader & recovery
+TARGET_NO_BOOTLOADER := true
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_LDPI_RECOVERY := true
+
 #Enable OpenGL Hardware Acceleration
 # msm7x27: no support for overlay, bypass, or c2d
 USE_OPENGL_RENDERER := true
 TARGET_USE_OVERLAY := false
 TARGET_HAVE_BYPASS := false
 TARGET_USES_C2D_COMPOSITION := false
+TARGET_USES_GENLOCK := true
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QCOM_LIBS := true
 BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
-BOARD_USE_SKIA_LCDTEXT := true
 BOARD_EGL_CFG := device/lge/pecan/configs/egl.cfg
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DREFRESH_RATE=60
 
 # Audio & Bluetooth
 TARGET_PROVIDES_LIBAUDIO := true
@@ -56,33 +66,27 @@ TARGET_USES_OLD_LIBSENSORS_HAL:=true
 #BOARD_USES_QCOM_HARDWARE := true
 #BOARD_USES_QCOM_LIBS := true
 #BOARD_USES_QCOM_LIBRPC := true
-BOARD_USE_ADRENO_200_GPU := true
 
 # GPS
-BOARD_GPS_LIBRARIES := libgps #librpc
+BOARD_GPS_LIBRARIES := libgps 
 BOARD_USES_QCOM_GPS := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := pecan
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
-# Browser
-WITH_JIT := true
-ENABLE_JSC_JIT := true
+# Browser & WebKit
 JS_ENGINE := v8
 HTTP := chrome
+WITH_JIT := true
+ENABLE_JSC_JIT := true
+ENABLE_WEBGL := true
+TARGET_FORCE_CPU_UPLOAD := true
 
 # Usb mass storage 
 BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
 
-# ICS Stuff 
-BOARD_HAS_NO_SELECT_BUTTON := true
-
-
 # RIL
 BOARD_PROVIDES_LIBRIL := true
-
-#Nedeed for LGPECAN sensors 
-COMMON_GLOBAL_CFLAGS += -DUSE_LGE_ALS_DUMMY
 
 # Skia
 BOARD_USE_SKIA_LCDTEXT := true
@@ -107,11 +111,6 @@ BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 
 #Prepare for new BootAnimation
 TARGET_BOOTANIMATION_NAME := vertical-240x320
-
-#recovery
-BOARD_LDPI_RECOVERY := true
-BOARD_HAS_JANKY_BACKBUFFER := true
-BOARD_CUSTOM_GRAPHICS := ../../../device/lge/pecan/recovery/graphics.c
 
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/lge/msm7x27

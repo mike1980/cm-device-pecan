@@ -1,48 +1,13 @@
-PRODUCT_AAPT_CONFIG := normal ldpi
-PRODUCT_AAPT_PREF_CONFIG := ldpi
-
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, device/common/gps/gps_us_supl.mk)
+$(call inherit-product, vendor/qcom/opensource/omx/mm-core/Android.mk)
+$(call inherit-product, vendor/qcom/opensource/omx/mm-video/Android.mk)
 $(call inherit-product-if-exists, vendor/lge/pecan/pecan-vendor.mk)
 
-# Discard inherited values and use our own instead.
-PRODUCT_NAME := LG_p350
-PRODUCT_DEVICE := pecan
-PRODUCT_MODEL := LG Optimus ME
-PRODUCT_MANUFACTURER := LGE
+DEVICE_PACKAGE_OVERLAYS += device/lge/pecan/overlay
 
-# Graphics 
-PRODUCT_PACKAGES += \
-   libmemalloc \
-   libQcomUI \
-   libgralloc \
-   libcopybit
-
-# Zram
-PRODUCT_PACKAGES += \
-    hwaddrs
-
-# Video decoding
-PRODUCT_PACKAGES += \
-    libmm-omxcore \
-    libOmxCore \
-    libOmxVidEnc 
-
-# Apps
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory \
-    FM 
-
-# Other
-PRODUCT_PACKAGES += \
-    librs_jni \
-    libcamera \
-    gadget_id \
-    bash \
-    dexpreopt 
-    #gps.pecan 
 
 PRODUCT_LOCALES := en_GB
-
-$(call inherit-product, build/target/product/full.mk)
 
 # Device permissions
 PRODUCT_COPY_FILES += \
@@ -55,15 +20,6 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-
-# Publish that we support the live wallpaper feature.
-PRODUCT_COPY_FILES += \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml 
-    PRODUCT_PACKAGES += \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    VisualizationWallpapers \
-    librs_jni
 
 # Releasetools
 PRODUCT_COPY_FILES += \
@@ -120,3 +76,58 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
      device/lge/pecan/prebuilt/lib/libcamera.so:obj/lib/libcamera.so \
      device/lge/pecan/prebuilt/lib/libcamera.so:system/lib/libcamera.so \
+
+PRODUCT_AAPT_CONFIG := normal ldpi
+PRODUCT_AAPT_PREF_CONFIG := ldpi
+
+# Apps
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory \
+    FM
+
+# Publish that we support the live wallpaper feature.
+PRODUCT_COPY_FILES += \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml 
+    PRODUCT_PACKAGES += \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    VisualizationWallpapers \
+    librs_jni
+
+# Display
+PRODUCT_PACKAGES += \
+   libmemalloc \
+   libQcomUI \
+   libtilerenderer \
+   gralloc.msm7x27 \
+   copybit.msm7x27 \
+   hwcomposer.msm7x27
+
+# Zram
+PRODUCT_PACKAGES += \
+    hwaddrs
+
+# Other
+PRODUCT_PACKAGES += \
+    librs_jni \
+    camera.msm7x27 \
+    gadget_id \
+    bash \
+    dexpreopt 
+    #gps.pecan 
+
+# QCOM OMX
+PRODUCT_PACKAGES += \
+    libstagefrighthw \
+    libOmxCore \
+    libmm-omxcore \
+    libOmxVdec \
+    libOmxVenc
+
+$(call inherit-product, build/target/product/full.mk)
+
+# Discard inherited values and use our own instead.
+PRODUCT_NAME := LG_p350
+PRODUCT_DEVICE := pecan
+PRODUCT_MODEL := LG Optimus ME
+PRODUCT_MANUFACTURER := LGE
