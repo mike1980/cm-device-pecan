@@ -38,8 +38,8 @@ on init
     setprop ro.CONTENT_PROVIDER_MEM 5632
     setprop ro.EMPTY_APP_MEM 6144
 
-# Overwrite framework low memory killer minfree setting
-    write /sys/module/lowmemorykiller/parameters/minfree 3584,4096,6144,7168,7680,8192
+# Import Froyo LMK settings due to its less aggressive nature
+    write /sys/module/lowmemorykiller/parameters/minfree 1536,2048,4096,5120,5632,6144
 
 # Enable low memory killer to check file pages
     write /sys/module/lowmemorykiller/parameters/minfile 0,0,0,5120,5632,6144
@@ -49,6 +49,11 @@ on init
     chmod 0755 /data/system/appwidgets.xml
     chmod 0755 /data/system/entropy.dat
     chmod 0755 /data/system/wallpaper_info.xml
+
+on fs
+
+    # framebuffer permission for copybit
+    chmod 0666 /dev/graphics/fb0
 
 on post-fs
 
@@ -84,6 +89,11 @@ on boot-pause
 
     exec sbin/chargerlogo
 
+on early-boot
+
+    # set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+
 on boot
 
     mkdir /data/amit 0777 ami304d ami304d
@@ -92,6 +102,10 @@ on boot
 
     mkdir /data/radio 0770 radio radio
     chmod 2770 /data/radio
+
+    # liblights
+    chown system system /sys/class/leds/button-backlight/brightness
+    chown system system /sys/class/leds/lcd-backlight/brightness
 
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
@@ -104,6 +118,11 @@ on boot
     chown bluetooth bluetooth /dev/ttyHS0
     chmod 0660 /dev/ttyHS0
     chmod 0666 /dev/msm_snd
+
+    # allow interfaces to get IPv6 address when tethering is enabled
+    write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet1/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet2/accept_ra 2
 
     # wifi
     mkdir /data/misc 01771 system misc
@@ -261,6 +280,15 @@ service hwaddrs /system/bin/hwaddrs
 
 on property:init.svc.bootanim=running
     start hwaddrs
+
+service qcom-post-boot /system/bin/sh /system/etc/init.pecan.post_boot.sh
+    class main
+    user root
+    disabled
+    oneshot
+
+on property:init.svc.bootanim=stopped
+    start pecan-post-boot
 
 ## Read BT address
 on property:service.brcm.bt.mac=*
