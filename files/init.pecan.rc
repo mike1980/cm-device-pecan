@@ -281,7 +281,7 @@ service hwaddrs /system/bin/hwaddrs
 on property:init.svc.bootanim=running
     start hwaddrs
 
-service qcom-post-boot /system/bin/sh /system/etc/init.pecan.post_boot.sh
+service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class main
     user root
     disabled
