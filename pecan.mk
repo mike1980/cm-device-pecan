@@ -68,10 +68,6 @@ PRODUCT_COPY_FILES += \
     device/lge/pecan/configs/idc/melfas-touchscreen.idc:system/usr/idc/melfas-touchscreen.idc \
     device/lge/pecan/configs/idc/touch_mcs7000.idc:system/usr/idc/touch_mcs7000.idc 
 
-# BT startup
-PRODUCT_COPY_FILES += \
-    device/lge/pecan/prebuilt/init.qcom.bt.sh:system/bin/init.qcom.bt.sh
-
 # Camera 
 PRODUCT_COPY_FILES += \
      device/lge/pecan/prebuilt/lib/libcamera.so:obj/lib/libcamera.so \
@@ -94,35 +90,46 @@ PRODUCT_COPY_FILES += \
     VisualizationWallpapers \
     librs_jni
 
+# Audio
+PRODUCT_PACKAGES += \
+    audio_policy.pecan \
+    audio.primary.pecan \
+    audio.a2dp.default 
+
 # Display
 PRODUCT_PACKAGES += \
    libmemalloc \
+   liboverlay \
    libQcomUI \
    libtilerenderer \
+   libopencorehw \
    gralloc.msm7x27 \
    copybit.msm7x27 \
    hwcomposer.msm7x27
 
-# Zram
+# BT startup
+PRODUCT_COPY_FILES += device/lge/pecan/prebuilt/init.qcom.bt.sh:system/bin/init.qcom.bt.sh
 PRODUCT_PACKAGES += \
+    hcitool \
+    hciconfig \
     hwaddrs
 
 # Other
 PRODUCT_PACKAGES += \
     librs_jni \
+    lights.msm7x27 \
     camera.msm7x27 \
     gadget_id \
     bash \
     dexpreopt 
     #gps.pecan 
 
-# QCOM OMX
+# Media
 PRODUCT_PACKAGES += \
     libstagefrighthw \
-    libOmxCore \
     libmm-omxcore \
-    libOmxVdec \
-    libOmxVenc
+    libOmxCore \
+    libdivxdrmdecrypt
 
 $(call inherit-product, build/target/product/full.mk)
 

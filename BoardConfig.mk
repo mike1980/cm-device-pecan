@@ -25,7 +25,6 @@ TARGET_OTA_ASSERT_DEVICE := p350,pecan
 
 # Target information
 TARGET_NO_RADIOIMAGE := false
-TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 BOARD_NO_RGBX_8888 := true
 BOARD_USE_NASTY_PTHREAD_CREATE_HACK := true
 TARGET_USES_16BPPSURFACE_FOR_OPAQUE := true
@@ -39,19 +38,31 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_LDPI_RECOVERY := true
 
-#Enable OpenGL Hardware Acceleration
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_LIBRPC := true
+BOARD_COMBO_DEVICE_SUPPORTED := true
+
 # msm7x27: no support for overlay, bypass, or c2d
-USE_OPENGL_RENDERER := true
 TARGET_USE_OVERLAY := false
 TARGET_HAVE_BYPASS := false
 TARGET_USES_C2D_COMPOSITION := false
-TARGET_USES_GENLOCK := true
-TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
-BOARD_USES_QCOM_HARDWARE := true
-BOARD_USES_QCOM_LIBS := true
-BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
+
+# Skia
+BOARD_USE_SKIA_LCDTEXT := true
+BOARD_FORCE_DITHERING := true
+
+#Enable OpenGL Hardware Acceleration
 BOARD_EGL_CFG := device/lge/pecan/configs/egl.cfg
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DREFRESH_RATE=60
+USE_OPENGL_RENDERER := true
+TARGET_USES_GENLOCK := true
+BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
+
+COMMON_GLOBAL_CFLAGS += -DTARGET_MSM7x27 -DQCOM_HARDWARE
+COMMON_GLOBAL_CFLAGS += -DMISSING_GRALLOC_BUFFERS -DREFRESH_RATE=60
+
+TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
+BOARD_CAMERA_USE_GETBUFFERINFO := true
 
 # Audio & Bluetooth
 TARGET_PROVIDES_LIBAUDIO := true
@@ -59,13 +70,6 @@ BOARD_COMBO_DEVICE_SUPPORTED := true
 BOARD_USES_AUDIO_LEGACY := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-
-TARGET_USES_OLD_LIBSENSORS_HAL:=true
-
-# QCOM
-#BOARD_USES_QCOM_HARDWARE := true
-#BOARD_USES_QCOM_LIBS := true
-#BOARD_USES_QCOM_LIBRPC := true
 
 # GPS
 BOARD_GPS_LIBRARIES := libgps 
@@ -88,21 +92,17 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/f
 # RIL
 BOARD_PROVIDES_LIBRIL := true
 
-# Skia
-BOARD_USE_SKIA_LCDTEXT := true
-BOARD_FORCE_DITHERING := true
-
-# Wireless
-BOARD_WLAN_DEVICE               := bcm4329
-WIFI_DRIVER_FW_STA_PATH         := "/system/etc/wl/rtecdc.bin"
-WIFI_DRIVER_FW_AP_PATH          := "/system/etc/wl/rtecdc-apsta.bin"
-WIFI_DRIVER_MODULE_NAME         := "wireless"
-WIFI_DRIVER_MODULE_PATH         := "/system/lib/modules/wireless.ko"
-WIFI_DRIVER_MODULE_ARG          := "firmware_path=/etc/wl/rtecdc.bin nvram_path=/etc/wl/nvram.txt config_path=/data/misc/wifi/config"
-WPA_SUPPLICANT_VERSION          := VER_0_5_X
-HOSTAPD_VERSION                 := VER_0_5_X
-WIFI_DRIVER_HAS_LGE_SOFTAP      := true
-BOARD_WPA_SUPPLICANT_DRIVER     := WEXT
+# Wi-Fi & Wi-Fi HotSpot
+WPA_SUPPLICANT_VERSION      := VER_0_6_X
+BOARD_WLAN_DEVICE           := bcm4329
+BOARD_WEXT_NO_COMBO_SCAN    := true
+BOARD_WPA_SUPPLICANT_DRIVER := WEXT
+WIFI_DRIVER_HAS_LGE_SOFTAP  := true
+WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/wireless.ko"
+WIFI_DRIVER_MODULE_ARG      := "firmware_path=/etc/wl/rtecdc.bin nvram_path=/etc/wl/nvram.txt config_path=/data/misc/wifi/config"
+WIFI_DRIVER_MODULE_NAME     := "wireless"
+WIFI_DRIVER_FW_PATH_STA     := "/system/etc/wl/rtecdc.bin"
+WIFI_DRIVER_FW_PATH_AP      := "/system/etc/wl/rtecdc-apsta.bin"
 
 # FM Radio
 BOARD_FM_DEVICE := bcm4329
