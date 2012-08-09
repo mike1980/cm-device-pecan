@@ -46,6 +46,10 @@ PRODUCT_COPY_FILES += \
     device/lge/pecan/files/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     device/lge/pecan/files/etc/dhcpd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf
 
+# Misc 
+PRODUCT_COPY_FILES += \
+    device/lge/pecan/files/etc/adreno_config.txt:system/etc/adreno_config.txt 
+
 # Audio
 PRODUCT_COPY_FILES += \
     device/lge/pecan/prebuilt/lib/hw/audio.primary.pecan.so:system/lib/hw/audio.primary.pecan.so \
