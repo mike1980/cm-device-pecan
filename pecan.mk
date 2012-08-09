@@ -27,7 +27,7 @@ PRODUCT_COPY_FILES += \
 
 # Vold 
 PRODUCT_COPY_FILES += \
-    device/lge/pecan/files/etc/vold.fstab:system/etc/vold.fstab 
+    device/lge/pecan/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab 
 
 # Init
 PRODUCT_COPY_FILES += \
@@ -35,7 +35,7 @@ PRODUCT_COPY_FILES += \
     device/lge/pecan/root/ueventd.pecan.rc:root/ueventd.pecan.rc \
     device/lge/pecan/root/init.pecan.usb.rc:root/init.pecan.usb.rc \
     device/lge/pecan/root/init.lge.hidden_reset.sh:root/init.lge.hidden_reset.sh \
-    device/lge/pecan/files/init.init.qcom.post_boot.sh::system/etc/init.qcom.post_boot.sh
+    device/lge/pecan/prebuilt/system/etc/init.init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh
     
 # Initlogo
 PRODUCT_COPY_FILES += \
@@ -43,18 +43,18 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-    device/lge/pecan/files/nvram.txt:system/etc/wl/nvram.txt \
-    device/lge/pecan/files/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    device/lge/pecan/files/etc/dhcpd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf
+    device/lge/pecan/prebuilt/system/nvram.txt:system/etc/wl/nvram.txt \
+    device/lge/pecan/prebuilt/system/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    device/lge/pecan/prebuilt/system/etc/dhcpd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf
 
 # Misc 
 PRODUCT_COPY_FILES += \
-    device/lge/pecan/files/etc/adreno_config.txt:system/etc/adreno_config.txt 
+    device/lge/pecan/prebuilt/system/etc/adreno_config.txt:system/etc/adreno_config.txt 
 
 # Audio
 PRODUCT_COPY_FILES += \
-    device/lge/pecan/prebuilt/lib/hw/audio.primary.pecan.so:system/lib/hw/audio.primary.pecan.so \
-    device/lge/pecan/prebuilt/lib/hw/audio_policy.pecan.so:system/lib/hw/audio_policy.pecan.so \
+    device/lge/pecan/prebuilt/system/lib/hw/audio.primary.pecan.so:system/lib/hw/audio.primary.pecan.so \
+    device/lge/pecan/prebuilt/system/lib/hw/audio_policy.pecan.so:system/lib/hw/audio_policy.pecan.so \
     vendor/lge/pecan/proprietary/lib/libaudioeq.so:system/lib/libaudioeq.so
 
 # Touch and IDC
@@ -75,8 +75,8 @@ PRODUCT_COPY_FILES += \
 
 # Camera 
 PRODUCT_COPY_FILES += \
-     device/lge/pecan/prebuilt/lib/libcamera.so:obj/lib/libcamera.so \
-     device/lge/pecan/prebuilt/lib/libcamera.so:system/lib/libcamera.so \
+     device/lge/pecan/prebuilt/system/lib/libcamera.so:obj/lib/libcamera.so \
+     device/lge/pecan/prebuilt/system/lib/libcamera.so:system/lib/libcamera.so \
 
 PRODUCT_AAPT_CONFIG := normal ldpi
 PRODUCT_AAPT_PREF_CONFIG := ldpi
