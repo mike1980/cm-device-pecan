@@ -31,15 +31,15 @@ PRODUCT_COPY_FILES += \
 
 # Init
 PRODUCT_COPY_FILES += \
-    device/lge/pecan/files/init.pecan.rc:root/init.pecan.rc \
-    device/lge/pecan/files/ueventd.pecan.rc:root/ueventd.pecan.rc \
-    device/lge/pecan/files/init.pecan.usb.rc:root/init.pecan.usb.rc \
-    device/lge/pecan/files/init.lge.hidden_reset.sh:root/init.lge.hidden_reset.sh
+    device/lge/pecan/root/init.pecan.rc:root/init.pecan.rc \
+    device/lge/pecan/root/ueventd.pecan.rc:root/ueventd.pecan.rc \
+    device/lge/pecan/root/init.pecan.usb.rc:root/init.pecan.usb.rc \
+    device/lge/pecan/root/init.lge.hidden_reset.sh:root/init.lge.hidden_reset.sh \
     device/lge/pecan/files/init.init.qcom.post_boot.sh::system/etc/init.qcom.post_boot.sh
     
 # Initlogo
 PRODUCT_COPY_FILES += \
-    device/lge/pecan/prebuilt/initlogo.rle:root/initlogo.rle
+    device/lge/pecan/root/initlogo.rle:root/initlogo.rle
 
 # Wifi
 PRODUCT_COPY_FILES += \
