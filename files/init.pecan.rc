@@ -298,6 +298,22 @@ service cnd /system/bin/cnd
     socket cnd stream 660 root radio
     socket cne stream 660 root radio
 
+# compcache - handle at boot
+service compcache /system/bin/handle_compcache
+ class main
+ user root
+ group root
+ disabled
+
+on property:persist.service.zram=10
+ start compcache
+
+on property:persist.service.zram=18
+ start compcache
+
+on property:persist.service.zram=26
+ start compcache
+
 on property:persist.service.adb.enable=1
     start gadget_id
 
