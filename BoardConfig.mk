@@ -4,7 +4,6 @@
 USE_CAMERA_STUB := true
 
 # Camera
-# http://r.cyanogenmod.com/#/c/13317/
 COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
 #BOARD_CAMERA_USE_GETBUFFERINFO := true
 #BOARD_USE_CAF_LIBCAMERA := true
