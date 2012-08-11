@@ -1,5 +1,9 @@
-/*	  	
+/*
+<<<<<<< HEAD
  * Copyright (C) 2012, Raviprasad V Mummidi.
+=======
+ * Copyright (C) 2012, Raviprasad V Mummidi. {TAKEN FROM LG ICS}
+>>>>>>> b6cf8080c3fa754494bcdcd3426818c18bc6c21b
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
