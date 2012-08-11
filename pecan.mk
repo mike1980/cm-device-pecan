@@ -28,6 +28,20 @@ PRODUCT_COPY_FILES += \
     device/lge/pecan/root/init.lge.hidden_reset.sh:root/init.lge.hidden_reset.sh \
     device/lge/pecan/root/initlogo.rle:root/initlogo.rle
 
+PRODUCT_COPY_FILES += \ 
+    device/lge/pecan/configs/qwerty.kl:system/usr/keylayout/qwerty.kl \
+    device/lge/pecan/configs/touch_mcs7000.kl:system/usr/keylayout/touch_mcs7000.kl \
+	device/lge/pecan/configs/keychars/touch_mcs7000.kcm.bin:system/usr/keychars/touch_mcs7000.kcm.bin \
+    device/lge/pecan/configs/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    device/lge/pecan/configs/idc/qwerty.idc:system/usr/idc/qwerty.idc \
+    device/lge/pecan/configs/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
+    device/lge/pecan/configs/idc/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc \	  	
+    device/lge/pecan/configs/idc/synaptics.idc:system/usr/idc/synaptics.idc \
+	device/lge/pecan/configs/idc/touchscreen-keypad.idc:system/usr/idc/touchscreen-keypad.idc \
+	device/lge/pecan/configs/idc/msm_touchscreen.idc:system/usr/idc/msm_touchscreen.idc \
+	device/lge/pecan/configs/idc/melfas-touchscreen.idc:system/usr/idc/melfas-touchscreen.idc \
+	device/lge/pecan/configs/idc/touch_mcs7000.idc:system/usr/idc/touch_mcs7000.idc 
+
 PRODUCT_COPY_FILES += \
     device/lge/pecan/prebuilt/init.init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh
 
@@ -41,6 +55,9 @@ PRODUCT_COPY_FILES += \
     device/lge/pecan/configs/vold.fstab:system/etc/vold.fstab 
     device/lge/pecan/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     
+PRODUCT_AAPT_CONFIG := normal ldpi
+PRODUCT_AAPT_PREF_CONFIG := ldpi
+
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
@@ -96,8 +113,22 @@ PRODUCT_PACKAGES += \
     hwaddrs
 
 
+# Live wallpapers
+PRODUCT_COPY_FILES += packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
+PRODUCT_PACKAGES += \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    VisualizationWallpapers \
+    librs_jni
+
+# Full-featured build of the Open-Source
+$(call inherit-product, build/target/product/full.mk)
+
+PRODUCT_NAME := Pecan
+PRODUCT_DEVICE := Pecan
+PRODUCT_MODEL := LG-P350
+
 PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-
 
 DEVICE_PACKAGE_OVERLAYS += device/lge/pecan/overlay
